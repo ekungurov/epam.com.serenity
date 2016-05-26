@@ -27,7 +27,7 @@ public class OptimizedParallelAcceptanceTestSuite  extends SerenityStories {
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (v1, v2) -> v1, LinkedHashMap::new));
     }
 
-    protected void selectStoryFilesForRunningSuite() {
+    void selectStoryFilesForRunningSuite() {
         parallelAcceptanceTestSuite(getSuiteStoryPaths());
     }
 
@@ -92,12 +92,12 @@ public class OptimizedParallelAcceptanceTestSuite  extends SerenityStories {
         }
     }
 
-    protected void outputWhichStoriesAreBeingRun(final List<String> stories) {
+    private void outputWhichStoriesAreBeingRun(final List<String> stories) {
         LOG.info("Running stories: ");
-        stories.stream().forEach(story -> LOG.info(" - " + story));
+        stories.stream().forEach(LOG::info);
     }
 
-    protected List<String> getSuiteStoryPaths() {
+    private List<String> getSuiteStoryPaths() {
         return Optional.of(getStoryList(System.getProperty("metafilter"))).filter(this::isNotEmpty)
                 .orElseThrow(() -> new IllegalStateException("There are no story to run by selected tags"));
     }
